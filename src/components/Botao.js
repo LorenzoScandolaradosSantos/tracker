@@ -1,34 +1,39 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { cores, raio } from '../theme';
+import { cores, raio, fonte, alvoMinimo } from '../theme';
 
 const VARIANTES = {
   primario: { fundo: cores.destaque, texto: '#fff', borda: cores.destaque },
-  neutro: { fundo: cores.superficie, texto: cores.texto, borda: cores.borda },
-  perigo: { fundo: cores.perigoSuave, texto: cores.perigo, borda: cores.perigoSuave },
+  neutro: { fundo: cores.superficie, texto: cores.texto, borda: cores.preto },
+  perigo: { fundo: cores.perigoSuave, texto: cores.perigo, borda: cores.perigo },
+  escuro: { fundo: cores.preto, texto: cores.branco, borda: cores.preto },
 };
 
-export default function Botao({ titulo, variante = 'neutro', onPress, style }) {
+export default function Botao({ titulo, variante = 'neutro', onPress, style, rotulo, desabilitado }) {
   const v = VARIANTES[variante];
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       onPress={onPress}
+      disabled={desabilitado}
+      accessibilityRole="button"
+      accessibilityLabel={rotulo || titulo}
+      accessibilityState={{ disabled: !!desabilitado }}
       style={[s.botao, { backgroundColor: v.fundo, borderColor: v.borda }, style]}
     >
-      <Text style={[s.texto, { color: v.texto }]} numberOfLines={1}>{titulo}</Text>
+      <Text style={[s.texto, { color: v.texto }]}>{titulo}</Text>
     </TouchableOpacity>
   );
 }
 
 const s = StyleSheet.create({
   botao: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: raio.botao,
-    paddingVertical: 10,
-    paddingHorizontal: 8,
+    minHeight: alvoMinimo,
+    paddingHorizontal: 14,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  texto: { fontWeight: '600', fontSize: 13 },
+  texto: { fontWeight: '800', fontSize: fonte.rotulo, textAlign: 'center' },
 });
