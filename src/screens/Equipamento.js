@@ -3,65 +3,51 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Cartao from '../components/Cartao';
 import Botao from '../components/Botao';
-import { cores, raio } from '../theme';
+import { useApp } from '../context/AppContext';
+import { cores, fonte, raio } from '../theme';
 
-export default function Equipamento() {
+export default function Inicio({ irPara }) {
+  const { tags, tocar } = useApp();
   return (
     <ScrollView contentContainerStyle={s.pad}>
+      {tags.length === 0 && (
+        <Cartao>
+          <Text style={s.titulo}>NENHUMA TAG</Text>
+          <Text style={s.suave}>Toque em "Adicionar tag" para procurar seu rastreador.</Text>
+        </Cartao>
+      )}
+
+      {tags.map((t) => (
+        <Cartao key={t.id}>
+          <Text style={s.titulo} accessibilityRole="header">{t.nome.toUpperCase()}</Text>
+          <View style={s.linha}>
+            <View style={s.icone} accessible={false}>
+              <Ionicons name={t.icone || 'bluetooth'} size={44} color={cores.branco} />
+            </View>
+            <Botao
+              titulo="TOCAR"
+              variante="escuro"
+              style={{ flex: 1, minHeight: 84 }}
+              rotulo={`Tocar ${t.nome}`}
+              onPress={() => tocar(t.id)}
+            />
+          </View>
+        </Cartao>
+      ))}
+
       <Cartao>
-        <View style={s.linha}>
-          <View style={s.icone}>
-            <Ionicons name="bluetooth" size={24} color={cores.destaque} />
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={s.nome}>Nome do equipamento</Text>
-            <Text style={s.suave}>Distância · Bateria</Text>
-          </View>
-          <View style={s.status}>
-            <View style={s.ponto} />
-            <Text style={s.statusTexto}>Conectado</Text>
-          </View>
-        </View>
-
-        <View style={s.acoes}>
-          <Botao titulo="Tocar" variante="primario" style={s.acao} />
-          <Botao titulo="Desconectar" style={s.acao} />
-          <Botao titulo="Remover" variante="perigo" style={s.acao} />
-        </View>
+        <Text style={s.titulo} accessibilityRole="header">ADICIONAR TAG</Text>
+        <Botao titulo="+" variante="escuro" style={{ minHeight: 84 }} rotulo="Adicionar nova tag" onPress={() => irPara('radar')} />
       </Cartao>
-
-      <Text style={s.nota}>
-        Sem equipamentos: mostrar "Nenhum equipamento" e botão "Procurar rastreador".
-      </Text>
+      <View style={{ height: 150 }} />{/* espaço para o botão vermelho */}
     </ScrollView>
   );
 }
 
 const s = StyleSheet.create({
-  pad: { padding: 16 },
-  linha: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  icone: {
-    width: 48,
-    height: 48,
-    borderRadius: raio.cartao,
-    backgroundColor: cores.destaqueSuave,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  nome: { fontSize: 16, fontWeight: '700', color: cores.texto },
-  suave: { marginTop: 2, fontSize: 13, color: cores.textoSuave },
-  status: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    backgroundColor: cores.sucessoSuave,
-    borderRadius: raio.pill,
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-  },
-  ponto: { width: 7, height: 7, borderRadius: 4, backgroundColor: cores.sucesso },
-  statusTexto: { fontSize: 12, fontWeight: '600', color: cores.sucesso },
-  acoes: { flexDirection: 'row', gap: 8, marginTop: 14 },
-  acao: { flex: 1 },
-  nota: { color: cores.textoSuave, fontStyle: 'italic', fontSize: 13, marginTop: 14 },
+  pad: { padding: 16, gap: 16 },
+  titulo: { fontSize: fonte.titulo, fontWeight: '900', color: cores.preto, textAlign: 'center', marginBottom: 10 },
+  suave: { fontSize: fonte.corpo, color: cores.textoSuave, textAlign: 'center' },
+  linha: { flexDirection: 'row', gap: 12, alignItems: 'center' },
+  icone: { width: 84, height: 84, borderRadius: raio.botao, backgroundColor: '#9A9A9A', alignItems: 'center', justifyContent: 'center' },
 });
