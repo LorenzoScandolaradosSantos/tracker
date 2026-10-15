@@ -1,5 +1,4 @@
 export const cores = {
-  // paleta original (mantida para compatibilidade)
   fundo: '#F4F5F7',
   superficie: '#FFFFFF',
   texto: '#161A22',
@@ -21,6 +20,5 @@ export const cores = {
 
 export const raio = { botao: 18, cartao: 22, pill: 999 };
 
-// Tamanhos grandes de propósito (baixa visão). allowFontScaling fica ligado nos <Text>.
 export const fonte = { corpo: 18, rotulo: 20, titulo: 26 };
 export const alvoMinimo = 60; // altura mínima de qualquer área tocável
