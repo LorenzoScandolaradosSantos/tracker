@@ -1,1 +1,21 @@
-{ "expo": { "name": "Rastreador Wireframe", "slug": "rastreador-wireframe", "version": "1.0.0", "orientation": "portrait" } }
+{
+  "expo": {
+    "name": "Rastreador Wireframe",
+    "slug": "rastreador-wireframe",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "plugins": [
+      [
+        "react-native-ble-plx",
+        {
+          "isBackgroundEnabled": false,
+          "modes": [],
+          "bluetoothAlwaysPermission": "Permitir que $(PRODUCT_NAME) use o Bluetooth para encontrar e conectar ao seu rastreador."
+        }
+      ]
+    ],
+    "android": {
+      "package": "com.anonymous.rastreadorwireframe"
+    }
+  }
+}

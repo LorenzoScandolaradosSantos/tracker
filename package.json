@@ -6,9 +6,11 @@
     "start": "expo start"
   },
   "dependencies": {
-    "expo": "57.0.30",
+    "expo": "^57.0.30",
+    "expo-dev-client": "~57.0.20",
     "react": "19.2.3",
-    "react-native": "0.86.3"
+    "react-native": "0.86.3",
+    "react-native-ble-plx": "^3.5.1"
   },
   "private": true
 }

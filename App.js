@@ -1,30 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Switch, StyleSheet, Platform, StatusBar } from 'react-native';
+import Equipamento from './src/screens/Equipamento';
 
 const TABS = ['Equipamento', 'Localização', 'Configurações', 'Descrição'];
-
-function Equipamento() {
-  return (
-    <ScrollView contentContainerStyle={s.pad}>
-      <View style={s.box}>
-        <View style={s.row}>
-          <View style={s.square}><Text>ícone</Text></View>
-          <View style={{ flex: 1 }}>
-            <Text style={s.bold}>Nome do equipamento</Text>
-            <Text>Distância · Bateria</Text>
-          </View>
-          <Text>Conectado</Text>
-        </View>
-        <View style={[s.row, { marginTop: 10 }]}>
-          <Text style={s.btn}>Tocar</Text>
-          <Text style={s.btn}>Desconectar</Text>
-          <Text style={s.btn}>Remover</Text>
-        </View>
-      </View>
-      <Text style={s.note}>Sem equipamentos: mostrar "Nenhum equipamento" e botão "Procurar rastreador".</Text>
-    </ScrollView>
-  );
-}
 
 function Localizacao() {
   return (
